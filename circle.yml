@@ -19,16 +19,16 @@ dependencies:
 # Run tests
 test:
   pre:
-    # Build million12/centos-supervisor image
-    - docker build -t million12/centos-supervisor .
+    # Build massdest/docker-centos-supervisor image
+    - docker build -t massdest/docker-centos-supervisor .
 
   override:
-    - docker run -d million12/centos-supervisor
-    - docker run -d million12/centos-supervisor "ps aux"
+    - docker run -d massdest/docker-centos-supervisor
+    - docker run -d massdest/docker-centos-supervisor "ps aux"
     # Test if supervisord is running
-    - docker run -it million12/centos-supervisor "ps aux | grep supervisord"
+    - docker run -it massdest/docker-centos-supervisor "ps aux | grep supervisord"
     # Test if supervisorctl is working
-    - docker run -it million12/centos-supervisor "supervisorctl stop all"
+    - docker run -it massdest/docker-centos-supervisor "supervisorctl stop all"
     
     # Test if we have inotify working
-    - docker run -it million12/centos-supervisor "inotifywatch -t 1 /home | tee /tmp/out"
+    - docker run -it massdest/docker-centos-supervisor "inotifywatch -t 1 /home | tee /tmp/out"
